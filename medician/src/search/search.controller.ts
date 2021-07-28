@@ -5,15 +5,7 @@ import { SearchService } from './search.service';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
   @Get()
-  getHello(): string {
-    return this.searchService.hello();
-  }
-  @Get('/beom')
-  bbb(@Query('age') age: number): string {
-    return `범존잘 ${age}`;
-  }
-  @Get('/beom')
-  asdfasdf(): string {
-    return `범존잘`;
+  search(@Query('search-keyword') searchKeyword: string): string {
+    return this.searchService.search(searchKeyword);
   }
 }
