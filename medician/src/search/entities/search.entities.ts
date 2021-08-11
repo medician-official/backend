@@ -18,6 +18,7 @@ export class SearchPackage {
 
 // product-loader makes list of this.
 export class ProductInfo {
+    index: number;
     name: string;
     brand: string;
     productType: string[];

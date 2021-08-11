@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
 import { SearchService } from './search.service';
-import { KeywordParserModule } from './keyword-parser/keyword-parser.module';
-import { ProductLoaderModule } from './product-loader/product-loader.module';
+import { ProductLoaderService } from './product-loader.service';
+import { KeywordParserService } from './keyword-parser.service';
 
 @Module({
   controllers: [SearchController],
-  providers: [SearchService],
-  imports: [KeywordParserModule, ProductLoaderModule],
+  providers: [SearchService, ProductLoaderService, KeywordParserService],
 })
 export class SearchModule {}

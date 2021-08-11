@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { KeywordParser } from './keyword-parser';
+import { KeywordParserService } from './keyword-parser.service';
 
-describe('KeywordParser', () => {
-  let provider: KeywordParser;
+describe('KeywordParserService', () => {
+  let provider: KeywordParserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [KeywordParser],
+      providers: [KeywordParserService],
     }).compile();
 
-    provider = module.get<KeywordParser>(KeywordParser);
+    provider = module.get<KeywordParserService>(KeywordParserService);
   });
 
   it('should be defined', () => {
