@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CreateSignUpDto } from './dto/signup.dto';
 import { SignupService } from './signup.service';
 
@@ -6,20 +6,26 @@ import { SignupService } from './signup.service';
 export class SignupController {
   constructor(private readonly signupService: SignupService) {}
 
-  // login
+  // 회원가입
   @Post()
-  @HttpCode(200) // default 200
-  post(@Body() signUpDto: CreateSignUpDto): any {
-    return this.signupService.login(signUpDto);
+  async post(@Body() signUpDto: CreateSignUpDto): Promise<any> {
+    return this.signupService.post(signUpDto);
   }
 
+  // [for debug] ID 확인용
+  // @Get()
+  // async get(
+  //   // @Query('id') id: string,
+  //   // @Query('password') password: string,
+  //   // @Query('etc') etc: string,
+  //   @Query() signUpDto: CreateSignUpDto,
+  // ): Promise<any> {
+  //   return this.signupService.get(signUpDto);
+  // }
+
+  // [for debug] ID 확인용
   @Get()
-  get(
-    // @Query('id') id: string,
-    // @Query('password') password: string,
-    // @Query('etc') etc: string,
-    @Query() signUpDto: CreateSignUpDto,
-  ): string {
+  async get(@Body() signUpDto: CreateSignUpDto): Promise<any> {
     return this.signupService.get(signUpDto);
   }
 }
