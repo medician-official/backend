@@ -1,41 +1,35 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ProductInfo } from './entities/search.entities';
-import { ProductLoaderService } from './product-loader.service';
 import { SearchService } from './search.service';
 
 @Controller('search')
 export class SearchController {
     constructor(
         private readonly searchService: SearchService,
-        private readonly productLoaderService: ProductLoaderService
     ) {}
 
     @Get()
-    search(searchKeyword: string): ProductInfo[] {
-        return this.productLoaderService.getProductList();
+    getAll(): ProductInfo[] {
+        return this.searchService.getProductList();
+    }
+
+    @Get("basic-search")
+    search(@Query("keyword") searchKeyword: string) {
+        return this.searchService.getProductByKeyword(searchKeyword);
     }
 
     @Get("/:index")
     getOne(@Param('index') index: number) {
-        return this.productLoaderService.getProductByIndex(index);
+        return this.searchService.getProductByIndex(index);
     }
 
     @Post()
     create(@Body() productInfo: ProductInfo) {
-        return this.productLoaderService.addProduct(productInfo);
+        return this.searchService.addProduct(productInfo);
     }
 
     @Delete("/:index")
     remove(@Param('index') index: number) {
-        return this.productLoaderService.deleteProduct(index);
+        return this.searchService.deleteProduct(index);
     }
-
-    // update all of module
-    // @Put()
-
-    // update some of module
-    // @Patch('/:id')
-    // patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto) {
-    //     return this.moviesService.update(movieId, updateData);
-    // }
 }
