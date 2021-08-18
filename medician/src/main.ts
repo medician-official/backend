@@ -11,6 +11,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.enableCors(); // NOTE: IP::PORT 허용되도록 수정.
   await app.listen(3003);
 }
 bootstrap();
