@@ -11,7 +11,7 @@ export class SignupService {
     readonly repoUser: Repository<User>,
   ) {}
 
-  async post(signUpDto: CreateSignUpDto): Promise<any> {
+  async post(signUpDto: CreateSignUpDto): Promise<HttpStatus> {
     console.log(`[SignupService][post] signUpDto`, signUpDto);
     let queryUserById: User[] = await this.queryUserById(signUpDto.id);
 
@@ -22,12 +22,12 @@ export class SignupService {
     );
     // 1. id 중복 확인
     if (1 <= queryUserById.length) {
-      throw new HttpException('이미 존재하는 ID', HttpStatus.CONFLICT);
+      return HttpStatus.CONFLICT;
     }
     // TODO: 2. 적절한 password 형식인지 확인
 
     await this.repoUser.save(signUpDto);
-    return 'ID 등록 성공!';
+    return HttpStatus.OK;
   }
 
   async get(signUpDto: CreateSignUpDto): Promise<any> {

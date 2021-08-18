@@ -11,27 +11,31 @@ export class LoginService {
     readonly repoUser: Repository<User>,
   ) {}
 
-  async get(signInDto: SignInDto): Promise<any> {
-    const queryUserById: User[] = await this.repoUser
-      .createQueryBuilder()
-      .where(`User.id = '${signInDto.id}'`)
-      .getMany();
+  get(signInDto: SignInDto): any {
+    return signInDto;
+  }
+
+  async post(signInDto: SignInDto): Promise<HttpStatus> {
+    const queryUserById: User[] = await this.queryUserById(signInDto.id);
     console.log(queryUserById);
 
     // 1. id 존재 여부 확인.
     if (0 === queryUserById.length) {
-      throw new HttpException('ID 가 없습니다', HttpStatus.NOT_FOUND); // NOTE: httpstatus 확인 필요.
+      return HttpStatus.NOT_FOUND;
     }
 
     // 2. password 확인.
     if (signInDto.password !== queryUserById[0].password) {
-      throw new HttpException('password 가 틀렸습니다.', HttpStatus.CONFLICT);
+      return HttpStatus.CONFLICT;
     }
 
-    return `login 성공!`;
+    return HttpStatus.OK;
   }
 
-  post(signInDto: SignInDto): any {
-    return signInDto;
+  async queryUserById(id: string): Promise<any> {
+    return await this.repoUser
+      .createQueryBuilder()
+      .where(`User.id = '${id}'`)
+      .getMany();
   }
 }

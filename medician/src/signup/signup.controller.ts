@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateSignUpDto } from './dto/signup.dto';
 import { SignupService } from './signup.service';
 
@@ -8,11 +17,14 @@ export class SignupController {
 
   // 회원가입
   @Post()
-  async post(@Body() signUpDto: CreateSignUpDto): Promise<any> {
-    return this.signupService.post(signUpDto);
+  async post(@Body() signUpDto: CreateSignUpDto) {
+    let httpStatus: Promise<HttpStatus> = this.signupService.post(signUpDto);
+    if (HttpStatus.CONFLICT === (await httpStatus)) {
+      throw new HttpException('이미 존재하는 ID', HttpStatus.CONFLICT);
+    }
   }
 
-  // [for debug] ID 확인용
+  // [for debug] ID 확인용: url 로 값 전달받는 경우에 사용
   // @Get()
   // async get(
   //   // @Query('id') id: string,
@@ -23,7 +35,7 @@ export class SignupController {
   //   return this.signupService.get(signUpDto);
   // }
 
-  // [for debug] ID 확인용
+  // [for debug] ID 확인용: body 로 값 전달받는 경우에 사용
   @Get()
   async get(@Body() signUpDto: CreateSignUpDto): Promise<any> {
     return this.signupService.get(signUpDto);
