@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductInfo } from './entities/search.entities';
 import * as fs from 'fs'
+import { ProductFilterDto } from './dto/filtered-search.dto';
 
 @Injectable()
 export class SearchService {
@@ -79,5 +80,64 @@ export class SearchService {
 
     deleteProduct(index: number) {
         this.productList = this.productList.filter(element => element.index !== index);
+    }
+
+    getProductByFilter(filter: ProductFilterDto) {
+        var searchResult: ProductInfo[] = [];
+        this.productList.forEach(element => {
+            // name
+            if (filter.name) {
+                if (RegExp(filter.name, 'i').test(element.name)) {
+                    searchResult.push(element);
+                    console.log(filter);
+                    return;
+                }
+            }
+            // brand
+            if (filter.brand) {
+                if (RegExp(filter.brand, 'i').test(element.brand)) {
+                    searchResult.push(element);
+                    console.log("check_brand");
+                    return;
+                }
+            }
+            // productType
+            if (filter.productType) {
+                element.productType.forEach(element2 => {
+                    filter.productType.forEach(element3 => {
+                        if (RegExp(element3, 'i').test(element2)) {
+                            searchResult.push(element);
+                            console.log("check_prot");
+                            return;
+                        }
+                    })
+                })
+            }
+            // main Ingredient
+            if (filter.mainIngredients) {
+                element.mainIngredients.forEach(element2 => {
+                    filter.mainIngredients.forEach(element3 => {
+                        if (RegExp(element3, 'i').test(element2)) {
+                            searchResult.push(element);
+                            console.log("check_ing");
+                            return;
+                        }
+                    })
+                })
+            }
+            // efficacy
+            if (filter.efficacy) {
+                element.efficacy.forEach(element2 => {
+                    filter.efficacy.forEach(element3 => {
+                        if (RegExp(element3, 'i').test(element2)) {
+                            searchResult.push(element);
+                            console.log("check_eff");
+                            return;
+                        }
+                    })
+                })
+            }
+        })
+        return searchResult;
     }
 }

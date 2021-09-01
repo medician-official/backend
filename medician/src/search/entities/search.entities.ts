@@ -1,5 +1,6 @@
-// mainly used in detail-search service
+// mainly used in filtered-search service
 export class ProductFilter {
+    name: string;
     brand: string;
     productType: string[];
     mainIngredients: string[];

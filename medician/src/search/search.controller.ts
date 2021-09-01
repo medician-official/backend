@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { ProductFilterDto } from './dto/filtered-search.dto';
 import { ProductInfo } from './entities/search.entities';
 import { SearchService } from './search.service';
 
@@ -31,5 +32,10 @@ export class SearchController {
     @Delete("/:index")
     remove(@Param('index') index: number) {
         return this.searchService.deleteProduct(index);
+    }
+
+    @Post("filtered-search")
+    filteredSearch(@Body() filter: ProductFilterDto) {
+        return this.searchService.getProductByFilter(filter);
     }
 }
