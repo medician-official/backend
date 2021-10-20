@@ -1,3 +1,5 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
 // mainly used in filtered-search service
 export class ProductFilter {
     name: string;
@@ -18,16 +20,28 @@ export class SearchPackage {
 }
 
 // product-loader makes list of this.
+@Entity()
 export class ProductInfo {
+    @PrimaryGeneratedColumn("increment")
     index: number;
+    @Column()
     name: string;
+    @Column()
     brand: string;
-    productType: string[];
-    mainIngredients: string[];
-    efficacy: string[];
+    @Column()
+    productType: string;
+    @Column()
+    mainIngredients: string;
+    @Column()
+    efficacy: string;
+    @Column()
     url: string;
+    @Column()
     lowestPrice: number;
+    @Column()
     quantity: number;
-    tags: string[];
-    image: ImageData;
+    @Column()
+    tags: string;
+    // @Column()
+    // image: ImageData;
 }

@@ -47,33 +47,49 @@ export class SearchService {
                 return;
             }
             // productType
-            element.productType.forEach(element2 => {
-                if (RegExp(searchKeyword, 'i').test(element2)) {
-                    searchResult.push(element);
-                    return;
-                }
-            })
+            // element.productType.forEach(element2 => {
+            //     if (RegExp(searchKeyword, 'i').test(element2)) {
+            //         searchResult.push(element);
+            //         return;
+            //     }
+            // })
+            if (RegExp(searchKeyword, 'i').test(element.productType)) {
+                searchResult.push(element);
+                return;
+            }
             // main Ingredient
-            element.mainIngredients.forEach(element2 => {
-                if (RegExp(searchKeyword, 'i').test(element2)) {
-                    searchResult.push(element);
-                    return;
-                }
-            })
+            // element.mainIngredients.forEach(element2 => {
+            //     if (RegExp(searchKeyword, 'i').test(element2)) {
+            //         searchResult.push(element);
+            //         return;
+            //     }
+            // })
+            if (RegExp(searchKeyword, 'i').test(element.mainIngredients)) {
+                searchResult.push(element);
+                return;
+            }
             // efficacy
-            element.efficacy.forEach(element2 => {
-                if (RegExp(searchKeyword, 'i').test(element2)) {
-                    searchResult.push(element);
-                    return;
-                }
-            })
+            // element.efficacy.forEach(element2 => {
+            //     if (RegExp(searchKeyword, 'i').test(element2)) {
+            //         searchResult.push(element);
+            //         return;
+            //     }
+            // })
+            if (RegExp(searchKeyword, 'i').test(element.efficacy)) {
+                searchResult.push(element);
+                return;
+            }
             // tags
-            element.tags.forEach(element2 => {
-                if (RegExp(searchKeyword, 'i').test(element2)) {
-                    searchResult.push(element);
-                    return;
-                }
-            })
+            // element.tags.forEach(element2 => {
+            //     if (RegExp(searchKeyword, 'i').test(element2)) {
+            //         searchResult.push(element);
+            //         return;
+            //     }
+            // })
+            if (RegExp(searchKeyword, 'i').test(element.tags)) {
+                searchResult.push(element);
+                return;
+            }
         })
         return searchResult;
     }
@@ -103,39 +119,45 @@ export class SearchService {
             }
             // productType
             if (filter.productType) {
-                element.productType.forEach(element2 => {
-                    filter.productType.forEach(element3 => {
-                        if (RegExp(element3, 'i').test(element2)) {
-                            searchResult.push(element);
-                            console.log("check_prot");
-                            return;
-                        }
-                    })
-                })
+                // element.productType.forEach(element2 => {
+                //     filter.productType.forEach(element3 => {
+                //         if (RegExp(element3, 'i').test(element2)) {
+                //             searchResult.push(element);
+                //             console.log("check_prot");
+                //             return;
+                //         }
+                //     })
+                // })
+                if (RegExp(filter.productType, 'i').test(element.productType)) {
+                    searchResult.push(element);
+                    console.log("check_productType");
+                    return;
+                }
             }
             // main Ingredient
             if (filter.mainIngredients) {
-                element.mainIngredients.forEach(element2 => {
-                    filter.mainIngredients.forEach(element3 => {
-                        if (RegExp(element3, 'i').test(element2)) {
-                            searchResult.push(element);
-                            console.log("check_ing");
-                            return;
-                        }
-                    })
-                })
+                // element.mainIngredients.forEach(element2 => {
+                //     filter.mainIngredients.forEach(element3 => {
+                //         if (RegExp(element3, 'i').test(element2)) {
+                //             searchResult.push(element);
+                //             console.log("check_ing");
+                //             return;
+                //         }
+                //     })
+                // })
+                if (RegExp(filter.mainIngredients, 'i').test(element.mainIngredients)) {
+                    searchResult.push(element);
+                    console.log("check_main_ingredient");
+                    return;
+                }
             }
             // efficacy
             if (filter.efficacy) {
-                element.efficacy.forEach(element2 => {
-                    filter.efficacy.forEach(element3 => {
-                        if (RegExp(element3, 'i').test(element2)) {
-                            searchResult.push(element);
-                            console.log("check_eff");
-                            return;
-                        }
-                    })
-                })
+                if (RegExp(filter.efficacy, 'i').test(element.efficacy)) {
+                    searchResult.push(element);
+                    console.log("check_efficacy");
+                    return;
+                }
             }
         })
         return searchResult;
