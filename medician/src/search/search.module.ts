@@ -4,7 +4,7 @@ import { getConnectionOptions } from 'typeorm';
 import { ProductInfo } from './entities/search.entities';
 import { SearchController } from './search.controller';
 // import { SearchService } from './search.service';
-import { SearchService } from './search.service_typeorm';
+import { SearchService } from './search.service';
 
 @Module({
   imports: [
