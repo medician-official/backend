@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
-import { ProductInfo } from './entities/search.entities';
+import { ProductFilterDto } from './dto/filtered-search.dto';
+import { ProductInfoDto } from './dto/product-info.dto';
 import { SearchService } from './search.service';
 
 @Controller('search')
@@ -9,27 +10,24 @@ export class SearchController {
     ) {}
 
     @Get()
-    getAll(): ProductInfo[] {
+    getAll() {
+        console.log("getAll");
         return this.searchService.getProductList();
     }
 
+    // localhost:3003/search/basic-search?keyword="asdf"
     @Get("basic-search")
     search(@Query("keyword") searchKeyword: string) {
         return this.searchService.getProductByKeyword(searchKeyword);
     }
 
-    @Get("/:index")
-    getOne(@Param('index') index: number) {
-        return this.searchService.getProductByIndex(index);
-    }
-
     @Post()
-    create(@Body() productInfo: ProductInfo) {
+    create(@Body() productInfo: ProductInfoDto) {
         return this.searchService.addProduct(productInfo);
     }
 
-    @Delete("/:index")
-    remove(@Param('index') index: number) {
-        return this.searchService.deleteProduct(index);
+    @Post("filtered-search")
+    filteredSearch(@Body() filter: ProductFilterDto) {
+        return this.searchService.getProductByFilter(filter);
     }
 }

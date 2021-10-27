@@ -1,9 +1,9 @@
 {
     "type": "mysql",
     "host": "localhost",
-    "port": 3307,
+    "port": 3306,
     "username": "root",
-    "password": "111111",
+    "password": "",
     "database": "medician",
     "entities": [
         "dist/**/*.entity{.ts,.js}"

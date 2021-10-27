@@ -1,32 +1,47 @@
-// mainly used in detail-search service
-export class ProductFilter {
-    brand: string;
-    productType: string[];
-    mainIngredients: string[];
-    efficacy: string[];
-    minPrice: number;
-    maxPrice: number;
-}
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-// search module make this and send to keyword-parser
-export class SearchPackage {
-    memberId: string;
-    memberNumber: number;
-    keywords: string;
-    detailedAttributes: ProductFilter;
-}
+// mainly used in filtered-search service
+// export class ProductFilter {
+//     name: string;
+//     brand: string;
+//     productType: string[];
+//     mainIngredients: string[];
+//     efficacy: string[];
+//     minPrice: number;
+//     maxPrice: number;
+// }
+
+// // search module make this and send to keyword-parser
+// export class SearchPackage {
+//     memberId: string;
+//     memberNumber: number;
+//     keywords: string;
+//     detailedAttributes: ProductFilter;
+// }
 
 // product-loader makes list of this.
+@Entity()
 export class ProductInfo {
+    @PrimaryGeneratedColumn("increment")
     index: number;
+    @Column()
     name: string;
+    @Column()
     brand: string;
-    productType: string[];
-    mainIngredients: string[];
-    efficacy: string[];
+    @Column()
+    productType: string;
+    @Column()
+    mainIngredients: string;
+    @Column()
+    efficacy: string;
+    @Column()
     url: string;
+    @Column()
     lowestPrice: number;
+    @Column()
     quantity: number;
-    tags: string[];
-    image: ImageData;
+    @Column()
+    tags: string;
+    // @Column()
+    // image: ImageData;
 }
